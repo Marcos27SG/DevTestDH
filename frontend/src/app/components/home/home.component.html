@@ -1,0 +1,38 @@
+
+<div class="notes-app">
+  <app-sidebar class="sidebar-content"
+    [tags]="availableTags" 
+    [selectedTag]="selectedTag"
+    (tagSelected)="onTagSelected($event)">
+  </app-sidebar>
+
+  <div class="main-content">
+    <app-topbar 
+      [title]="'Notes Tagged: ' + selectedTag"
+      (searchChanged)="onSearchChanged($event)">
+    </app-topbar>
+
+    <div class="content-area">
+      <app-notes-list-panel 
+        [notes]="getFilteredNotes()"
+        [selectedNote]="selectedNote"
+        (noteSelected)="onNoteSelected($event)"
+         (newNoteCreated)="onNewNoteCreated($event)">
+      </app-notes-list-panel>
+
+      <app-note-content-panel 
+            [note]="selectedNote"
+      [availableTags]="availableTags"
+      (noteSaved)="onNoteSaved($event)"
+      (noteDiscarded)="onNoteDiscarded($event)">
+      </app-note-content-panel>
+
+      <app-right-actions-panel 
+        [note]="selectedNote"
+        (archiveNote)="onArchiveNote()"
+        (deleteNote)="onDeleteNote()">
+      </app-right-actions-panel>
+    </div>
+  </div>
+</div>
+

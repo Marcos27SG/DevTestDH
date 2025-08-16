@@ -1,0 +1,25 @@
+<div class="right-actions-panel">
+  <div *ngIf="note" class="actions-content">
+    <div class="actions-section">
+      <button 
+        mat-stroked-button 
+        class="action-button archive-button"
+        (click)="onArchiveClick()"
+        matTooltip="Archive this note">
+        <mat-icon>archive</mat-icon>
+        Archive Note
+      </button>
+      
+      <button 
+        mat-stroked-button 
+        class="action-button delete-button"
+        (click)="onDeleteClick()"
+        matTooltip="Delete this note">
+        <mat-icon>delete_outline</mat-icon>
+        Delete Note
+      </button>
+    </div>
+    
+  
+  </div>
+</div>

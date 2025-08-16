@@ -1,0 +1,47 @@
+
+
+
+
+
+<mat-sidenav #sidenav mode = "side" opened class = "sidenav">
+ <div class="sidebar-header">
+      <div class="app-title">
+        <mat-icon class="app-icon">edit_note</mat-icon>
+        <span>ITNotes</span>
+      </div>
+    </div>
+    
+    <div class="sidebar-content">
+      <!-- Navigation Items -->
+      <mat-nav-list>
+        <mat-list-item 
+          [class.active]="selectedNavItem === 'all'"
+          (click)="selectNavItem('all')">
+          <mat-icon matListItemIcon>note</mat-icon>
+          <span matListItemTitle>All Notes</span>
+          <mat-icon matListItemMeta>chevron_right</mat-icon>
+        </mat-list-item>
+        
+        <mat-list-item 
+          [class.active]="selectedNavItem === 'archived'"
+          (click)="selectNavItem('archived')">
+          <mat-icon matListItemIcon>archive</mat-icon>
+          <span matListItemTitle>Archived Notes</span>
+        </mat-list-item>
+      </mat-nav-list>
+      
+      <!-- Tags Section -->
+      <div class="tags-section">
+        <h3>Tags</h3>
+        <mat-nav-list>
+          <mat-list-item 
+            *ngFor="let tag of tags" 
+            [class.active]="selectedTag === tag.title"
+            (click)="onTagClick(tag.title)">
+            <span matListItemTitle>{{tag.title}}</span>
+            <mat-icon matListItemIcon>local_offer</mat-icon>
+          </mat-list-item>
+        </mat-nav-list>
+      </div>
+    </div>
+</mat-sidenav>

@@ -1,0 +1,101 @@
+<div class="signup-container">
+  <div class="signup-card">
+    <div class="logo-section">
+      <div class="logo">
+        <mat-icon class="logo-icon">edit_note</mat-icon>
+        <span class="logo-text">Notes</span>
+      </div>
+      <h1 class="welcome-title">Create Your Account</h1>
+      <p class="welcome-subtitle">Sign up to start organizing your notes and boost your productivity.</p>
+    </div>
+
+    <form [formGroup]="signupForm" (ngSubmit)="onSubmit()" class="signup-form">
+      <!-- Email Field -->
+      <div class="form-group">
+        <label class="form-label">Email Address</label>
+        <mat-form-field appearance="outline" class="form-field">
+          <input
+            matInput
+            type="email"
+            formControlName="email"
+            placeholder="email@example.com"
+            autocomplete="email"
+          >
+          <mat-error *ngIf="signupForm.get('email')?.invalid && signupForm.get('email')?.touched">
+            {{getErrorMessage('email')}}
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <!-- Password Field -->
+      <div class="form-group">
+        <label class="form-label">Password</label>
+        <mat-form-field appearance="outline" class="form-field">
+          <input
+            matInput
+            [type]="hidePassword ? 'password' : 'text'"
+            formControlName="password"
+            autocomplete="new-password"
+          >
+          <button
+            mat-icon-button
+            matSuffix
+            (click)="hidePassword = !hidePassword"
+            type="button"
+          >
+            <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+          </button>
+          <mat-error *ngIf="signupForm.get('password')?.invalid && signupForm.get('password')?.touched">
+            {{getErrorMessage('password')}}
+          </mat-error>
+        </mat-form-field>
+        
+        <!-- Password requirement indicator -->
+        <div class="password-requirement" [class.valid]="isPasswordValid()">
+          <mat-icon class="requirement-icon">{{isPasswordValid() ? 'check_circle' : 'radio_button_unchecked'}}</mat-icon>
+          <span>At least 8 characters</span>
+        </div>
+      </div>
+
+      <!-- Sign Up Button -->
+      <button
+        mat-raised-button
+        type="submit"
+        class="signup-button"
+        [disabled]="isLoading"
+      >
+        <mat-spinner *ngIf="isLoading" diameter="20" class="spinner"></mat-spinner>
+        <span [class.hidden]="isLoading">Sign up</span>
+      </button>
+
+      <!-- Divider -->
+      <div class="divider">
+        <span>Or log in with:</span>
+      </div>
+
+      <!-- Google Button -->
+      <button
+        mat-outlined-button
+        type="button"
+        class="google-button"
+        (click)="onGoogleSignIn()"
+        [disabled]="isLoading"
+      >
+        <span class="google-text">G</span>
+        <span>Google</span>
+      </button>
+
+      <!-- Login Link -->
+      <div class="login-section">
+        <span class="login-text">Already have an account? </span>
+        <button
+          type="button"
+          class="login-link"
+          (click)="navigateToLogin()"
+        >
+          Login
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

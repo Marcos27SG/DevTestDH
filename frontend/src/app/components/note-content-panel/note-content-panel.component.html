@@ -1,0 +1,111 @@
+<div class="note-content-panel">
+  <div *ngIf="note; else noNoteSelected" class="note-content">
+    
+    <!-- EDITING MODE -->
+    <div *ngIf="isEditing" class="note-edit-mode">
+      <!-- Editable Title -->
+      <mat-form-field appearance="outline" class="title-field">
+        <input matInput 
+               [formControl]="titleControl" 
+               placeholder="Enter a title..."
+               class="title-input">
+      </mat-form-field>
+
+      <!-- Tags Selection -->
+      <div class="note-meta-edit">
+        <div class="meta-item">
+          <mat-icon class="meta-icon">local_offer</mat-icon>
+          <span class="meta-label">Tags</span>
+          <mat-form-field appearance="outline" class="tags-field">
+            <mat-select [formControl]="tagsControl" 
+                       multiple 
+                       placeholder="Add tags (separated by commas, e.g., Work, Planning)">
+              <mat-option *ngFor="let tag of availableTags" [value]="tag">
+                {{ tag.title }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        
+        <div class="meta-item">
+          <mat-icon class="meta-icon">schedule</mat-icon>
+          <span class="meta-label">Last edited</span>
+          <span class="meta-value">{{ isEditing && note.isNew ? 'Not yet saved' : formatDate(note.lastEdited) }}</span>
+        </div>
+      </div>
+
+      <!-- Editable Content -->
+      <div class="note-body-edit">
+        <mat-form-field appearance="outline" class="content-field">
+          <textarea matInput 
+                   [formControl]="contentControl" 
+                   placeholder="Start typing your note here..."
+                   rows="15"
+                   class="content-textarea"></textarea>
+        </mat-form-field>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="edit-actions">
+        <button mat-raised-button 
+                color="primary" 
+                (click)="saveNote()"
+                class="save-btn">
+          Save Note
+        </button>
+        <button mat-button 
+                (click)="cancelEdit()"
+                class="cancel-btn">
+          Cancel
+        </button>
+      </div>
+    </div>
+
+    <!-- VIEW MODE -->
+    <div *ngIf="!isEditing" class="note-view-mode">
+      <div class="note-header">
+        <div class="title-row">
+          <h1 class="note-title">{{ note.title }}</h1>
+          <button mat-icon-button 
+                  (click)="startEditing()"
+                  class="edit-btn"
+                  matTooltip="Edit note">
+            <mat-icon>edit</mat-icon>
+          </button>
+        </div>
+        
+        <div class="note-meta">
+          <div class="meta-item">
+            <mat-icon class="meta-icon">local_offer</mat-icon>
+            <span class="meta-label">Tags</span>
+            <div class="tags-list">
+              <span *ngFor="let tag of note.tags" class="tag-chip">{{ tag.title }}</span>
+              <span *ngIf="note.tags.length === 0" class="no-tags">No tags</span>
+            </div>
+          </div>
+          
+          <div class="meta-item">
+            <mat-icon class="meta-icon">schedule</mat-icon>
+            <span class="meta-label">Last edited</span>
+            <span class="meta-value">{{ formatDate(note.lastEdited) }}</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="note-body">
+        <div class="content-text" [innerHTML]="formatContent(note.content)"></div>
+        <div *ngIf="!note.content" class="empty-content">
+          <p>This note is empty. Click the edit button to add content.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <ng-template #noNoteSelected>
+    <div class="no-note-selected">
+      <mat-icon class="empty-icon">description</mat-icon>
+      <h2>Select a note to view</h2>
+      <p>Choose a note from the list to see its content here.</p>
+    </div>
+  </ng-template>
+</div>

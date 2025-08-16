@@ -1,0 +1,241 @@
+.login-container {
+  min-height: 100vh; // from 120vh to 100vh so it doesn't stretch too tall
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f5f5f5;
+  padding: 20px;
+}
+
+.login-card {
+  background: white;
+  border-radius: 12px;
+  padding: 32px; // was 48px, reduced for a tighter layout
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  width: 100%;
+  max-width: 420px; // was 500px, makes it narrower
+  text-align: center;
+
+  @media (max-width: 480px) {
+    padding: 24px 20px; // match smaller screens better
+  }
+}
+
+
+.logo-section {
+  margin-bottom: 32px;
+
+  .logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-bottom: 24px;
+
+    .logo-icon {
+      color: #4285f4;
+      font-size: 32px;
+      width: 32px;
+      height: 32px;
+    }
+
+    .logo-text {
+      font-size: 28px;
+      font-weight: 500;
+      color: #1a1a1a;
+      font-style: italic;
+    }
+  }
+
+  .welcome-title {
+    font-size: 24px;
+    font-weight: 600;
+    color: #1a1a1a;
+    margin: 0 0 8px 0;
+  }
+
+  .welcome-subtitle {
+    color: #666;
+    font-size: 14px;
+    margin: 0;
+  }
+}
+
+.login-form {
+  .form-group {
+    margin-bottom: 20px;
+    text-align: left;
+
+    .form-label {
+      display: block;
+      font-size: 14px;
+      font-weight: 500;
+      color: #333;
+      margin-bottom: 2px;
+    }
+
+    .password-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 6px;
+
+      .forgot-link {
+        background: none;
+        border: none;
+        color: #4285f4;
+        font-size: 14px;
+        cursor: pointer;
+        padding: 0;
+        text-decoration: underline;
+
+        &:hover {
+          color: #3367d6;
+        }
+      }
+    }
+
+    .form-field {
+      width: 100%;
+    }
+  }
+
+  .login-button {
+    width: 100%;
+    height: 48px;
+    background-color: #4285f4;
+    color: white;
+    font-size: 16px;
+    font-weight: 500;
+    border-radius: 6px;
+    margin: 24px 0 20px 0;
+    position: relative;
+
+    &:hover:not([disabled]) {
+      background-color: #3367d6;
+    }
+
+    &:disabled {
+      background-color: #ccc;
+    }
+
+    .spinner {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    .hidden {
+      opacity: 0;
+    }
+  }
+
+  .divider {
+    display: flex;
+    align-items: center;
+    margin: 20px 0;
+    color: #666;
+    font-size: 14px;
+
+    &::before,
+    &::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background-color: #ddd;
+    }
+
+    span {
+      padding: 0 16px;
+      background: white;
+    }
+  }
+
+  .google-button {
+    width: 100%;
+    height: 48px;
+    border: 1px solid #dadce0;
+    border-radius: 6px;
+    background-color: white;
+    color: #3c4043;
+    font-size: 16px;
+    font-weight: 500;
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+
+    &:hover:not([disabled]) {
+      border-color: #bbb;
+      background-color: #f8f9fa;
+    }
+
+    .google-text {
+      font-weight: 600;
+      font-size: 18px;
+      color: #4285f4;
+    }
+  }
+
+  .signup-section {
+    color: #666;
+    font-size: 14px;
+
+    .signup-text {
+      margin-right: 4px;
+    }
+
+    .signup-link {
+      background: none;
+      border: none;
+      color: #4285f4;
+      font-size: 14px;
+      cursor: pointer;
+      padding: 0;
+      text-decoration: underline;
+
+      &:hover {
+        color: #3367d6;
+      }
+    }
+  }
+}
+
+// Override Angular Material styles
+::ng-deep {
+  .mat-mdc-form-field {
+    .mat-mdc-text-field-wrapper {
+      border-radius: 6px !important;
+      
+      .mat-mdc-form-field-flex {
+        .mat-mdc-form-field-infix {
+          input {
+            font-size: 16px;
+            padding: 12px 5px;
+          }
+        }
+      }
+    }
+
+    .mat-mdc-form-field-outline {
+      .mat-mdc-form-field-outline-thick {
+        color: #4285f4 !important;
+      }
+    }
+
+    // Remove label
+    .mat-mdc-floating-label {
+      display: none !important;
+    }
+  }
+
+  .mat-mdc-outlined-button:not(:disabled) {
+    border-color: #dadce0;
+  }
+
+  .mat-mdc-raised-button:not(:disabled) {
+    box-shadow: none;
+  }
+}

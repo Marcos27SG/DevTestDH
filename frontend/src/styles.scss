@@ -1,0 +1,168 @@
+
+// Import Angular Material theme (updated for newer versions)
+@use '@angular/material' as mat;
+
+// Include the common styles for Angular Material
+@include mat.core();
+
+// Define custom theme colors (updated syntax)
+$custom-primary: mat.define-palette(mat.$blue-palette, 600);
+$custom-accent: mat.define-palette(mat.$blue-palette, A200, A100, A400);
+$custom-warn: mat.define-palette(mat.$red-palette);
+
+// Create the theme object (updated syntax)
+$custom-theme: mat.define-light-theme((
+  color: (
+    primary: $custom-primary,
+    accent: $custom-accent,
+    warn: $custom-warn,
+  ),
+  typography: mat.define-typography-config(),
+  density: 0,
+));
+
+// Include theme styles for core and each component used
+@include mat.all-component-themes($custom-theme);
+
+// Global styles
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f5f5f5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+// Custom scrollbar styles
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 4px;
+  
+  &:hover {
+    background: #a8a8a8;
+  }
+}
+
+// Angular Material customizations
+.mat-mdc-raised-button {
+  &.mat-primary {
+    background-color: #4285f4 !important;
+    
+    &:hover {
+      background-color: #1967d2 !important;
+    }
+  }
+}
+
+.mat-mdc-stroked-button {
+  border-width: 1px;
+  border-style: solid;
+}
+
+.mat-mdc-icon-button {
+  --mdc-icon-button-state-layer-size: 40px;
+  --mdc-icon-button-icon-size: 20px;
+}
+
+// Utility classes
+.text-ellipsis {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.no-margin {
+  margin: 0 !important;
+}
+
+.no-padding {
+  padding: 0 !important;
+}
+
+// Animations
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in {
+  animation: fadeIn 0.3s ease-out;
+}
+
+// Responsive design
+@media (max-width: 768px) {
+  .notes-app {
+    .sidebar {
+      width: 200px;
+    }
+    
+    .notes-list-panel {
+      width: 300px;
+    }
+    
+    .right-actions-panel {
+      width: 150px;
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .notes-app {
+    flex-direction: column;
+    
+    .sidebar {
+      width: 100%;
+      height: auto;
+      order: 2;
+    }
+    
+    .main-content {
+      order: 1;
+    }
+    
+    .content-area {
+      flex-direction: column;
+    }
+    
+    .notes-list-panel,
+    .right-actions-panel {
+      width: 100%;
+      height: auto;
+    }
+  }
+}
